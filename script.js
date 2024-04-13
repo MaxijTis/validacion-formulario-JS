@@ -1,3 +1,21 @@
+const firebaseConfig = {
+    apiKey: "AIzaSyDSDvsnYpIGYr8ylg5WgTGWcNcQhsFeV_c",
+    authDomain: "datos-de-formulario-eab6f.firebaseapp.com",
+    projectId: "datos-de-formulario-eab6f",
+    storageBucket: "datos-de-formulario-eab6f.appspot.com",
+    messagingSenderId: "321653879408",
+    appId: "1:321653879408:web:b2204a3b2d2664d90d3ab5",
+    measurementId: "G-4K802GFHQQ"
+  };
+
+//Iniialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+//inicialize cloud firestore y tome el servcio de referencia
+const db = firebase.firestore();
+
+
+
 document.getElementById('formulario').addEventListener('submit', (event) => {
     event.preventDefault()
 
@@ -41,7 +59,19 @@ document.getElementById('formulario').addEventListener('submit', (event) => {
 
     if (!errorNombre.textContent && !emailError.textContent && !contrasenaError.textContent) {
         //Backend que reciba la info
+        db.collection("users").add({
+            nombre: entradaNombre.value,
+            email: emailEntrada.value,
+            password: contrasenaEntrada.value
+        })
+        .then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+
         alert('El formuario se ha enviado con exito.')
         document.getElementById('formulario').reset();
     }
-})
+});
