@@ -65,13 +65,11 @@ document.getElementById('formulario').addEventListener('submit', (event) => {
             password: contrasenaEntrada.value
         })
         .then((docRef) => {
-            console.log("Document written with ID: ", docRef.id);
+            alert('El formuario se ha enviado con exito.', docRef.id)
+            document.getElementById('formulario').reset();
         })
         .catch((error) => {
-            console.error("Error adding document: ", error);
+            alert(error);
         });
-
-        alert('El formuario se ha enviado con exito.')
-        document.getElementById('formulario').reset();
     }
 });
